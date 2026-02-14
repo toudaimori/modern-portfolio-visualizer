@@ -44,7 +44,7 @@ To run this project locally on your machine:
 1. **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/modern-portfolio-visualizer.git](https://github.com/YOUR_USERNAME/modern-portfolio-visualizer.git)
+    git clone https://github.com/toudaimori/modern-portfolio-visualizer.git
     cd modern-portfolio-visualizer
     ```
 
