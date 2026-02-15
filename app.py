@@ -34,20 +34,26 @@ num_simulations = st.sidebar.slider("Number of Simulations", 1000, 10000, 5000)
 # --- 3. Data Processing Functions ---
 @st.cache_data
 def get_data(tickers, start, end):
-    # Fetch data using yfinance
     df = yf.download(tickers, start=start, end=end, progress=False)
     
-    # Handle MultiIndex for yfinance v0.2.x+
+    if df.empty:
+        return pd.DataFrame()
+    
+    # Adj Closeを優先し、なければCloseを使う
     if 'Adj Close' in df.columns:
         data = df['Adj Close']
     elif 'Close' in df.columns:
         data = df['Close']
     else:
         return pd.DataFrame()
-    
-    # Convert Series to DataFrame if only one ticker is provided
+
+    # 銘柄が1つの場合のSeries対策
     if isinstance(data, pd.Series):
         data = data.to_frame(name=tickers[0])
+    
+    # 【ここが重要】
+    # 1. まず「列（銘柄）」単位で、全ての値がNaNの銘柄を除外する
+    data = data.dropna(axis=1, how='all')
         
     return data.dropna()
 
