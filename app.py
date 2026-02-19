@@ -18,7 +18,7 @@ st.sidebar.header("Configuration")
 
 tickers_input = st.sidebar.text_input(
     "Stock Tickers (comma separated)", 
-    value="AAPL, MSFT, GOOGL, NVDA"
+    value="AAPL, MSFT, GOOGL"
 )
 tickers = [t.strip().upper() for t in tickers_input.split(",")]
 
